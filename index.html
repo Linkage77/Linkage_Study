@@ -6,55 +6,91 @@
   <title>Linkage Study Partner</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin: 0;
+      padding: 0;
       background: linear-gradient(180deg, #0b0f1f, #11172b);
-      color: white;
+      color: #ffffff;
+    }
+    header {
+      padding: 40px 20px 20px 20px;
+      background: #11172b;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    h1 {
+      color: #00ffff;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+    p.subtitle {
+      color: #888;
+      font-size: 1.2em;
     }
     input {
-      padding: 10px;
+      padding: 12px;
       width: 60%;
       border: none;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      border-radius: 12px;
+      margin: 20px 0 10px 0;
+      font-size: 1em;
+      outline: none;
     }
     button {
-      padding: 10px 20px;
-      background: #5865f2;
-      color: white;
+      padding: 12px 30px;
+      background: #00ffff;
+      color: #0b0f1f;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      font-size: 1em;
     }
     button:hover {
-      background: #4752c4;
+      background: #00d4d4;
     }
     #answer {
-      margin-top: 20px;
-      font-size: 1.1em;
-      line-height: 1.5;
-    }
-    .info-section {
-      margin-top: 40px;
-      padding: 20px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
+      margin-top: 25px;
+      font-size: 1.2em;
+      line-height: 1.6;
+      min-height: 60px;
       width: 70%;
       margin-left: auto;
       margin-right: auto;
+      padding: 15px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+    }
+    .info-section {
+      margin: 40px auto;
+      padding: 25px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      width: 70%;
     }
     .info-section h2 {
       margin-bottom: 10px;
+      color: #00ffff;
     }
     .info-section p {
       margin: 5px 0;
     }
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      background: #11172b;
+      color: #888;
+      font-size: 0.9em;
+    }
   </style>
 </head>
 <body>
-  <h1>🤖 Linkage Study Partner</h1>
-  <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
+  <header>
+    <h1>🤖 Linkage Study Partner</h1>
+    <p class="subtitle">Type a topic you don’t understand — your AI partner will explain it simply.</p>
+  </header>
 
   <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
   <br />
@@ -72,6 +108,10 @@
     <p>CEO & Founder: Anshuman Bhattarai</p>
     <p>Linkage is a global-first AI brand focused on connecting AI with your progress.</p>
   </div>
+
+  <footer>
+    © Linkage Industries — All Rights Reserved
+  </footer>
 
   <script>
     async function askAI() {
@@ -104,4 +144,3 @@
   </script>
 </body>
 </html>
-
