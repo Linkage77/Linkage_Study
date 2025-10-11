@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 80px;
+      margin-top: 50px;
       background: linear-gradient(180deg, #0b0f1f, #11172b);
       color: white;
     }
@@ -35,15 +35,43 @@
       font-size: 1.1em;
       line-height: 1.5;
     }
+    .info-section {
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .info-section h2 {
+      margin-bottom: 10px;
+    }
+    .info-section p {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
   <h1>🤖 Linkage Study Partner</h1>
   <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
+
   <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
   <br />
   <button onclick="askAI()">Ask</button>
   <p id="answer"></p>
+
+  <div class="info-section">
+    <h2>Developer & Owner</h2>
+    <p>Developer: Anshuman Bhattarai</p>
+    <p>Owner: Linkage</p>
+  </div>
+
+  <div class="info-section">
+    <h2>About Linkage</h2>
+    <p>CEO & Founder: Anshuman Bhattarai</p>
+    <p>Linkage is a global-first AI brand focused on connecting AI with your progress.</p>
+  </div>
 
   <script>
     async function askAI() {
@@ -76,3 +104,4 @@
   </script>
 </body>
 </html>
+
