@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linkage Study Partner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 80px;
+      background: linear-gradient(180deg, #0b0f1f, #11172b);
+      color: white;
+    }
+    input {
+      padding: 10px;
+      width: 60%;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #5865f2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #4752c4;
+    }
+    #answer {
+      margin-top: 20px;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 Linkage Study Partner</h1>
+  <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
+  <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
+  <br />
+  <button onclick="askAI()">Ask</button>
+  <p id="answer"></p>
+
+  <script>
+    async function askAI() {
+      const topic = document.getElementById("topic").value;
+      const answerElement = document.getElementById("answer");
+
+      if (!topic) {
+        answerElement.innerText = "Please enter a topic first!";
+        return;
+      }
+
+      answerElement.innerText = "Thinking...";
+
+      // Replace with your Make webhook URL
+      const makeWebhookURL = "https://hook.integromat.com/your_webhook_here";
+
+      try {
+        const response = await fetch(makeWebhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ topic })
+        });
+
+        const data = await response.json();
+        answerElement.innerText = data.answer || "No answer received.";
+      } catch (error) {
+        answerElement.innerText = "Error: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
