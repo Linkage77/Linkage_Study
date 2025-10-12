@@ -6,120 +6,143 @@
   <title>Linkage Study Partner</title>
   <style>
     body {
-      font-family: 'Poppins', Arial, sans-serif;
-      text-align: center;
+      font-family: "Poppins", Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(180deg, #070b18, #0b132b);
+      background: radial-gradient(circle at top, #0a0f1f, #0a0a0a);
       color: white;
+      text-align: center;
+      overflow-x: hidden;
     }
-    header {
-      margin-top: 60px;
-    }
+
     h1 {
-      font-size: 2.5em;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      margin-top: 80px;
+      font-size: 2.4em;
+      background: linear-gradient(90deg, #5865f2, #00b3ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: glow 3s ease-in-out infinite alternate;
     }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #5865f2; }
+      to { text-shadow: 0 0 25px #00b3ff; }
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #d1d1e0;
+      margin-bottom: 25px;
+    }
+
     input {
-      padding: 10px;
-      width: 60%;
+      padding: 12px;
+      width: 65%;
+      max-width: 400px;
       border: none;
       border-radius: 8px;
-      margin-bottom: 10px;
-      background: #121a33;
+      background: #1b1f3b;
       color: white;
+      outline: none;
     }
+
     button {
-      padding: 10px 20px;
-      background: linear-gradient(90deg, #5865f2, #4752c4);
+      padding: 12px 25px;
+      margin-left: 10px;
+      background: linear-gradient(90deg, #5865f2, #00b3ff);
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
+      transition: 0.3s;
+      font-weight: bold;
     }
+
     button:hover {
       transform: scale(1.05);
-      background: linear-gradient(90deg, #4752c4, #5865f2);
+      box-shadow: 0 0 15px #5865f2;
     }
+
     #answer {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 1.1em;
-      line-height: 1.5;
-    }
-    .about {
-      margin-top: 80px;
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
+      color: #f5f5f5;
+      line-height: 1.6;
       width: 80%;
       margin-left: auto;
       margin-right: auto;
-      box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+      max-width: 700px;
     }
-    .about h2 {
-      color: #00c6ff;
-      margin-bottom: 10px;
+
+    .about {
+      margin-top: 80px;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .about img {
+      border-radius: 14px;
       width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      margin-top: 15px;
-      border: 3px solid #5865f2;
+      height: auto;
+      margin-top: 20px;
+      border: 2px solid #5865f2;
       box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
-      object-fit: cover;
     }
+
     footer {
-      margin-top: 60px;
-      padding: 20px;
+      margin-top: 40px;
+      padding: 15px;
+      background: #0a0a0f;
       font-size: 0.9em;
-      color: #ccc;
-      background: rgba(0, 0, 0, 0.2);
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🤖 Linkage Study Partner</h1>
-    <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
-    <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
-    <br />
-    <button onclick="askAI()">Ask</button>
-    <p id="answer"></p>
-  </header>
+  <h1>🤖 Linkage Study Partner</h1>
+  <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
 
-  <section class="about">
+  <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
+  <button onclick="askAI()">Ask</button>
+
+  <p id="answer"></p>
+
+  <div class="about">
     <h2>About Linkage</h2>
-    <p><strong>Developer:</strong> Anshuman Bhattarai</p>
-    <p><strong>Owner:</strong> Linkage Industries</p>
-    <p><strong>CEO & Founder:</strong> Anshuman Bhattarai</p>
-    <img src="Anshuman.jpeg" alt="Anshuman Bhattarai" />
-    <p>We are a team working together under Linkage Industries — building AI tools that connect innovation with human progress.</p>
-  </section>
+    <p>At <b>Linkage Industries</b>, we build futuristic AI tools that empower learning, creativity, and progress.  
+    Connect our AI with your progress — and watch innovation happen.</p>
+    <p><b>CEO & Founder:</b> Anshuman Bhattarai</p>
+
+    <img src="https://raw.githubusercontent.com/Linkage77/Linkage_Study/main/Anshuman.jpeg" alt="Anshuman Bhattarai" />
+  </div>
 
   <footer>
-    © Linkage Industries — All Rights Reserved
+    © 2025 Linkage Industries — All Rights Reserved
   </footer>
 
   <script>
+    const topicInput = document.getElementById("topic");
+    const answerElement = document.getElementById("answer");
+
     async function askAI() {
-      const topic = document.getElementById("topic").value;
-      const answerElement = document.getElementById("answer");
+      const topic = topicInput.value.trim();
 
       if (!topic) {
-        answerElement.innerText = "Please enter a topic first!";
+        answerElement.innerText = "⚠️ Please enter a topic first!";
         return;
       }
 
-      answerElement.innerText = "Thinking...";
-
-      // Replace with your Make webhook URL
-      const makeWebhookURL = "https://hook.eu2.make.com/ogp1cvcv9nrouqeywn33oeo8r5gnihf6";
+      // Dynamic thinking animation
+      let dots = 0;
+      const loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        answerElement.innerText = "Thinking" + ".".repeat(dots) + " 🤔";
+      }, 500);
 
       try {
+        // Replace with your Make webhook URL
+        const makeWebhookURL = "https://hook.eu2.make.com/YOUR_WEBHOOK_HERE";
+
         const response = await fetch(makeWebhookURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -127,11 +150,19 @@
         });
 
         const data = await response.json();
+        clearInterval(loadingInterval);
+
         answerElement.innerText = data.answer || "No answer received.";
       } catch (error) {
-        answerElement.innerText = "Error: " + error.message;
+        clearInterval(loadingInterval);
+        answerElement.innerText = "❌ Error: " + error.message;
       }
     }
+
+    // Trigger askAI on Enter key
+    topicInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") askAI();
+    });
   </script>
 </body>
 </html>
