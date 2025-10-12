@@ -112,10 +112,9 @@
         const data = await response.json();
         clearInterval(loadingInterval);
 
-        if (data.answer) {
-          answerElement.innerText = data.answer;
-        } else if (data.result) {
-          answerElement.innerText = data.result;
+        // Correct field from Make webhook output
+        if (data["5"] && data["5"].result) {
+          answerElement.innerText = data["5"].result;
         } else {
           answerElement.innerText = "❌ No answer received from Make.";
         }
