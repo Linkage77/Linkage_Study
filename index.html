@@ -86,3 +86,52 @@
     <h1>🤖 Linkage Study Partner</h1>
     <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
     <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
+    <br />
+    <button onclick="askAI()">Ask</button>
+    <p id="answer"></p>
+  </header>
+
+  <section class="about">
+    <h2>About Linkage</h2>
+    <p><strong>Developer:</strong> Anshuman Bhattarai</p>
+    <p><strong>Owner:</strong> Linkage Industries</p>
+    <p><strong>CEO & Founder:</strong> Anshuman Bhattarai</p>
+    <img src="Anshuman.jpeg" alt="Anshuman Bhattarai" />
+    <p>We are a team working together under Linkage Industries — building AI tools that connect innovation with human progress.</p>
+  </section>
+
+  <footer>
+    © Linkage Industries — All Rights Reserved
+  </footer>
+
+  <script>
+    async function askAI() {
+      const topic = document.getElementById("topic").value;
+      const answerElement = document.getElementById("answer");
+
+      if (!topic) {
+        answerElement.innerText = "Please enter a topic first!";
+        return;
+      }
+
+      answerElement.innerText = "Thinking...";
+
+      // Replace with your Make webhook URL
+      const makeWebhookURL = "https://hook.eu2.make.com/ogp1cvcv9nrouqeywn33oeo8r5gnihf6";
+
+      try {
+        const response = await fetch(makeWebhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ topic })
+        });
+
+        const data = await response.json();
+        answerElement.innerText = data.answer || "No answer received.";
+      } catch (error) {
+        answerElement.innerText = "Error: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
