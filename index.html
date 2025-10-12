@@ -102,19 +102,29 @@
       }, 500);
 
       try {
-        // ✅ Use your actual Make webhook URL
         const makeWebhookURL = "https://hook.eu2.make.com/ogp1cvcv9nrouqeywn33oeo8r5gnihf6";
 
         const response = await fetch(makeWebhookURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ topic: topic })
+          body: JSON.stringify({ topic })
         });
 
-        const data = await response.json();
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          data = {};
+        }
+
         clearInterval(loadingInterval);
 
-        answerElement.innerText = data.answer || "No answer received.";
+        // Safely show answer
+        if (data.answer && typeof data.answer === "string") {
+          answerElement.innerText = data.answer;
+        } else {
+          answerElement.innerText = "❌ No answer received from Make.";
+        }
       } catch (error) {
         clearInterval(loadingInterval);
         answerElement.innerText = "❌ Error: " + error.message;
