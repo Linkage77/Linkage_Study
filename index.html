@@ -6,141 +6,83 @@
   <title>Linkage Study Partner</title>
   <style>
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Poppins', Arial, sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
-      background: linear-gradient(180deg, #0b0f1f, #11172b);
-      color: #ffffff;
+      background: linear-gradient(180deg, #070b18, #0b132b);
+      color: white;
     }
     header {
-      padding: 40px 20px 20px 20px;
-      background: #11172b;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      margin-top: 60px;
     }
     h1 {
-      color: #00ffff;
-      margin-bottom: 10px;
       font-size: 2.5em;
-    }
-    p.subtitle {
-      color: #888;
-      font-size: 1.2em;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     input {
-      padding: 12px;
+      padding: 10px;
       width: 60%;
       border: none;
-      border-radius: 12px;
-      margin: 20px 0 10px 0;
-      font-size: 1em;
-      outline: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #121a33;
+      color: white;
     }
     button {
-      padding: 12px 30px;
-      background: #00ffff;
-      color: #0b0f1f;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #5865f2, #4752c4);
+      color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-      font-size: 1em;
+      transition: all 0.2s ease-in-out;
     }
     button:hover {
-      background: #00d4d4;
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #4752c4, #5865f2);
     }
     #answer {
-      margin-top: 25px;
-      font-size: 1.2em;
-      line-height: 1.6;
-      min-height: 60px;
-      width: 70%;
+      margin-top: 20px;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    .about {
+      margin-top: 80px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      width: 80%;
       margin-left: auto;
       margin-right: auto;
-      padding: 15px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
     }
-    .info-section {
-      margin: 40px auto;
-      padding: 25px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      width: 70%;
-    }
-    .info-section h2 {
+    .about h2 {
+      color: #00c6ff;
       margin-bottom: 10px;
-      color: #00ffff;
     }
-    .info-section p {
-      margin: 5px 0;
+    .about img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin-top: 15px;
+      border: 3px solid #5865f2;
+      box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
+      object-fit: cover;
     }
     footer {
-      margin-top: 50px;
+      margin-top: 60px;
       padding: 20px;
-      background: #11172b;
-      color: #888;
       font-size: 0.9em;
+      color: #ccc;
+      background: rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
   <header>
     <h1>🤖 Linkage Study Partner</h1>
-    <p class="subtitle">Type a topic you don’t understand — your AI partner will explain it simply.</p>
-  </header>
-
-  <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
-  <br />
-  <button onclick="askAI()">Ask</button>
-  <p id="answer"></p>
-
-  <div class="info-section">
-    <h2>Developer & Owner</h2>
-    <p>Developer: Anshuman Bhattarai</p>
-    <p>Owner: Linkage</p>
-  </div>
-
-  <div class="info-section">
-    <h2>About Linkage</h2>
-    <p>CEO & Founder: Anshuman Bhattarai</p>
-    <p>Linkage is a global-first AI brand focused on connecting AI with your progress.</p>
-  </div>
-
-  <footer>
-    © Linkage Industries — All Rights Reserved
-  </footer>
-
-  <script>
-    async function askAI() {
-      const topic = document.getElementById("topic").value;
-      const answerElement = document.getElementById("answer");
-
-      if (!topic) {
-        answerElement.innerText = "Please enter a topic first!";
-        return;
-      }
-
-      answerElement.innerText = "Thinking...";
-
-      // ✅ Your real Make webhook URL
-      const makeWebhookURL = "https://hook.eu2.make.com/ogp1cvcv9nrouqeywn33oeo8r5gnihf6";
-
-      try {
-        const response = await fetch(makeWebhookURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ topic })
-        });
-
-        const data = await response.json();
-        answerElement.innerText = data.answer || "No answer received.";
-      } catch (error) {
-        answerElement.innerText = "Error: " + error.message;
-      }
-    }
-  </script>
-</body>
-</html>
+    <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
+    <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
