@@ -5,60 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linkage Study Partner</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
     body {
-      font-family: "Poppins", Arial, sans-serif;
+      font-family: 'Poppins', Arial, sans-serif;
       margin: 0;
       background: radial-gradient(circle at top, #0a0f1f, #0a0a0a);
-      color: white;
+      color: #ffffff;
       text-align: center;
       overflow-x: hidden;
     }
+
     h1 {
       margin-top: 80px;
-      font-size: 2.4em;
+      font-size: 2.6em;
       background: linear-gradient(90deg, #5865f2, #00b3ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: glow 3s ease-in-out infinite alternate;
     }
+
     @keyframes glow {
       from { text-shadow: 0 0 10px #5865f2; }
       to { text-shadow: 0 0 25px #00b3ff; }
     }
-    p { font-size: 1.1em; color: #d1d1e0; margin-bottom: 25px; }
+
+    p {
+      font-size: 1.1em;
+      color: #d1d1e0;
+      margin-bottom: 25px;
+    }
+
     input {
-      padding: 12px; width: 65%; max-width: 400px;
-      border: none; border-radius: 8px;
-      background: #1b1f3b; color: white; outline: none;
+      padding: 14px;
+      width: 65%;
+      max-width: 450px;
+      border: none;
+      border-radius: 10px;
+      background: #1b1f3b;
+      color: white;
+      outline: none;
+      font-size: 1em;
+      transition: 0.3s;
     }
+
+    input:focus {
+      box-shadow: 0 0 12px #00b3ff;
+    }
+
     button {
-      padding: 12px 25px; margin-left: 10px;
+      padding: 14px 30px;
+      margin-left: 12px;
       background: linear-gradient(90deg, #5865f2, #00b3ff);
-      color: white; border: none; border-radius: 8px;
-      cursor: pointer; transition: 0.3s; font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 700;
+      font-size: 1em;
     }
+
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px #5865f2;
+      box-shadow: 0 0 20px #5865f2;
     }
+
     #answer {
-      margin-top: 25px; font-size: 1.1em; color: #f5f5f5;
-      line-height: 1.6; width: 80%; margin-left: auto;
-      margin-right: auto; max-width: 700px;
+      margin-top: 25px;
+      font-size: 1.1em;
+      color: #f5f5f5;
+      line-height: 1.6;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 700px;
+      min-height: 50px;
     }
+
     .about {
-      margin-top: 80px; padding: 30px 20px;
+      margin-top: 80px;
+      padding: 40px 20px;
       background: rgba(255, 255, 255, 0.05);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
     }
+
     .about img {
-      border-radius: 14px; width: 180px; height: auto;
-      margin-top: 20px; border: 2px solid #5865f2;
+      border-radius: 16px;
+      width: 180px;
+      height: auto;
+      margin-top: 20px;
+      border: 2px solid #5865f2;
       box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
+      transition: 0.3s;
     }
+
+    .about img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(88, 101, 242, 0.8);
+    }
+
     footer {
-      margin-top: 40px; padding: 15px;
-      background: #0a0a0f; font-size: 0.9em; color: #888;
+      margin-top: 40px;
+      padding: 15px;
+      background: #0a0a0f;
+      font-size: 0.9em;
+      color: #888;
     }
   </style>
 </head>
@@ -102,7 +155,7 @@
       }, 500);
 
       try {
-        const makeWebhookURL = "https://hook.eu2.make.com/ogp1cvcv9nrouqeywn33oeo8r5gnihf6";
+        const makeWebhookURL = "https://linkage-worker.anshumanbhattarai124.workers.dev/";
 
         const response = await fetch(makeWebhookURL, {
           method: "POST",
@@ -119,9 +172,11 @@
 
         clearInterval(loadingInterval);
 
-        // Safely show answer
         if (data.answer && typeof data.answer === "string") {
           answerElement.innerText = data.answer;
+        } else if (data.result && typeof data.result === "string") {
+          // fallback for Gemini result variable
+          answerElement.innerText = data.result;
         } else {
           answerElement.innerText = "❌ No answer received from Make.";
         }
