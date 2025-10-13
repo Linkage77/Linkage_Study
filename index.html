@@ -15,7 +15,7 @@
     }
     h1 {
       margin-top: 80px;
-      font-size: 2.5em;
+      font-size: 2.4em;
       background: linear-gradient(90deg, #5865f2, #00b3ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -25,16 +25,16 @@
       from { text-shadow: 0 0 10px #5865f2; }
       to { text-shadow: 0 0 25px #00b3ff; }
     }
+    p { font-size: 1.1em; color: #d1d1e0; margin-bottom: 25px; }
     input {
       padding: 12px; width: 65%; max-width: 400px;
-      border: none; border-radius: 10px;
+      border: none; border-radius: 8px;
       background: #1b1f3b; color: white; outline: none;
-      font-size: 1em; margin-top: 15px;
     }
     button {
       padding: 12px 25px; margin-left: 10px;
       background: linear-gradient(90deg, #5865f2, #00b3ff);
-      color: white; border: none; border-radius: 10px;
+      color: white; border: none; border-radius: 8px;
       cursor: pointer; transition: 0.3s; font-weight: bold;
     }
     button:hover {
@@ -45,13 +45,16 @@
       margin-top: 25px; font-size: 1.1em; color: #f5f5f5;
       line-height: 1.6; width: 80%; margin-left: auto;
       margin-right: auto; max-width: 700px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px; padding: 15px;
     }
     .about {
       margin-top: 80px; padding: 30px 20px;
       background: rgba(255, 255, 255, 0.05);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .about img {
+      border-radius: 14px; width: 180px; height: auto;
+      margin-top: 20px; border: 2px solid #5865f2;
+      box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
     }
     footer {
       margin-top: 40px; padding: 15px;
@@ -70,12 +73,17 @@
 
   <div class="about">
     <h2>About Linkage</h2>
-    <p><b>Linkage Industries</b> builds futuristic AI tools to empower learning, creativity, and progress.<br>
+    <p>At <b>Linkage Industries</b>, we build futuristic AI tools that empower learning, creativity, and progress.  
     Connect our AI with your progress — and watch innovation happen.</p>
     <p><b>CEO & Founder:</b> Anshuman Bhattarai</p>
+
+    <!-- ✅ Your uploaded image -->
+    <img src="Anshuman.jpeg" alt="Anshuman Bhattarai" />
   </div>
 
-  <footer>© 2025 Linkage Industries — All Rights Reserved</footer>
+  <footer>
+    © 2025 Linkage Industries — All Rights Reserved
+  </footer>
 
   <script>
     const topicInput = document.getElementById("topic");
@@ -110,8 +118,6 @@
           answerElement.innerText = data.answer;
         } else if (data.result) {
           answerElement.innerText = data.result;
-        } else if (data.error) {
-          answerElement.innerText = "❌ Worker Error: " + data.error;
         } else {
           answerElement.innerText = "❌ No answer received from Make.";
         }
