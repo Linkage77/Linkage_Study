@@ -81,7 +81,7 @@
   <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
 
   <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
-  <button onclick="askAI()">Ask</button>
+  <button id="askBtn" onclick="askAI()">Ask</button>
 
   <!-- 🧠 Deep Research Mode Toggle -->
   <div class="mode-toggle" id="modeToggle">🧠 Deep Research Mode: OFF</div>
@@ -104,6 +104,7 @@
     const topicInput = document.getElementById("topic");
     const answerElement = document.getElementById("answer");
     const modeToggle = document.getElementById("modeToggle");
+    const askBtn = document.getElementById("askBtn");
 
     // 🧠 Default mode
     let mode = "normal";
@@ -114,10 +115,12 @@
         mode = "deep_research";
         modeToggle.classList.add("active");
         modeToggle.innerText = "🧠 Deep Research Mode: ON";
+        askBtn.innerText = "Ask (Deep Research)";
       } else {
         mode = "normal";
         modeToggle.classList.remove("active");
         modeToggle.innerText = "🧠 Deep Research Mode: OFF";
+        askBtn.innerText = "Ask";
       }
     });
 
@@ -160,6 +163,7 @@
       }
     }
 
+    // ✅ Pressing Enter respects the current mode
     topicInput.addEventListener("keypress", function(e) {
       if (e.key === "Enter") askAI();
     });
