@@ -60,6 +60,20 @@
       margin-top: 40px; padding: 15px;
       background: #0a0a0f; font-size: 0.9em; color: #888;
     }
+
+    /* ✅ Extra styling for Deep Research toggle */
+    .mode-toggle {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+    }
+    .mode-toggle.active {
+      color: #00e0ff;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -69,6 +83,9 @@
   <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
   <button onclick="askAI()">Ask</button>
 
+  <!-- 🧠 Deep Research Mode Toggle -->
+  <div class="mode-toggle" id="modeToggle">🧠 Deep Research Mode: OFF</div>
+
   <p id="answer"></p>
 
   <div class="about">
@@ -76,8 +93,6 @@
     <p>At <b>Linkage Industries</b>, we build futuristic AI tools that empower learning, creativity, and progress.  
     Connect our AI with your progress — and watch innovation happen.</p>
     <p><b>CEO & Founder:</b> Anshuman Bhattarai</p>
-
-    <!-- ✅ Your uploaded image -->
     <img src="Anshuman.jpeg" alt="Anshuman Bhattarai" />
   </div>
 
@@ -88,6 +103,23 @@
   <script>
     const topicInput = document.getElementById("topic");
     const answerElement = document.getElementById("answer");
+    const modeToggle = document.getElementById("modeToggle");
+
+    // 🧠 Default mode
+    let mode = "normal";
+
+    // ✅ Toggle Deep Research Mode
+    modeToggle.addEventListener("click", () => {
+      if (mode === "normal") {
+        mode = "deep_research";
+        modeToggle.classList.add("active");
+        modeToggle.innerText = "🧠 Deep Research Mode: ON";
+      } else {
+        mode = "normal";
+        modeToggle.classList.remove("active");
+        modeToggle.innerText = "🧠 Deep Research Mode: OFF";
+      }
+    });
 
     async function askAI() {
       const topic = topicInput.value.trim();
@@ -105,10 +137,11 @@
       try {
         const workerURL = "https://linkage-worker.anshumanbhattarai124.workers.dev/";
 
+        // ✅ Send both topic + mode
         const response = await fetch(workerURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ topic })
+          body: JSON.stringify({ topic, mode })
         });
 
         const data = await response.json();
