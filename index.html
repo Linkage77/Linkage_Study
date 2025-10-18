@@ -34,6 +34,11 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 20px;
+      padding: 15px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      background: linear-gradient(#0a0f1f, #0a0a0a) padding-box,
+                  linear-gradient(90deg, #5865f2, #00b3ff) border-box;
     }
     label {
       position: absolute;
@@ -55,18 +60,42 @@
       transform: scale(1.05);
       box-shadow: 0 0 15px #5865f2;
     }
+
     #answer {
-      margin-top: 25px; font-size: 1.1em; color: #f5f5f5;
-      line-height: 1.6; width: 80%; margin-left: auto;
-      margin-right: auto; max-width: 700px;
+      margin-top: 30px;
+      padding: 20px;
+      font-size: 1.1em;
+      color: #f5f5f5;
+      line-height: 1.6;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.2);
+      transition: opacity 0.5s ease;
     }
-    #answer[aria-live="polite"] {
-      min-height: 50px;
+
+    .spinner {
+      border: 4px solid #1b1f3b;
+      border-top: 4px solid #00b3ff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
     }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     .about {
       margin-top: 80px; padding: 30px 20px;
       background: rgba(255, 255, 255, 0.05);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 1s ease-in;
     }
     .about img {
       border-radius: 14px; width: 180px; height: auto;
@@ -80,21 +109,34 @@
 
     .mode-toggle {
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 15px;
       font-size: 0.95em;
       color: #ccc;
       cursor: pointer;
       user-select: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid #444;
+      background: #1b1f3b;
+      transition: all 0.3s ease;
     }
     .mode-toggle.active {
       color: #00e0ff;
+      background: #0a0f1f;
+      border-color: #00e0ff;
       font-weight: bold;
+      box-shadow: 0 0 10px #00e0ff;
     }
 
     @media (max-width: 600px) {
       h1 { font-size: 1.8em; }
       input, button { width: 100%; margin: 5px 0; }
       .input-group { flex-direction: column; align-items: center; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -110,7 +152,7 @@
 
   <div class="mode-toggle" id="modeToggle">🧠 Deep Research Mode: OFF</div>
 
-  <p id="answer" aria-live="polite"></p>
+  <div id="answer" aria-live="polite"></div>
 
   <div class="about">
     <h2>About Linkage</h2>
@@ -153,11 +195,10 @@
         return;
       }
 
-      let dots = 0;
-      const loadingInterval = setInterval(() => {
-        dots = (dots + 1) % 4;
-        answerElement.innerText = "Thinking" + ".".repeat(dots) + " 🤔";
-      }, 500);
+      answerElement.innerHTML = `
+        <div class="spinner"></div>
+        <p>Analyzing your topic with AI magic... ✨</p>
+      `;
 
       try {
         const workerURL = "https://linkage-worker.anshumanbhattarai124.workers.dev/";
@@ -169,24 +210,10 @@
         });
 
         const data = await response.json();
-        clearInterval(loadingInterval);
 
         if (data.answer) {
           answerElement.innerText = data.answer;
         } else if (data.result) {
           answerElement.innerText = data.result;
         } else {
-          answerElement.innerText = "❌ No answer received from Make.";
-        }
-      } catch (err) {
-        clearInterval(loadingInterval);
-        answerElement.innerText = "❌ Error: " + err.message;
-      }
-    }
-
-    topicInput.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") askAI();
-    });
-  </script>
-</body>
-</html>
+          answerElement.innerText = "❌ No answer received
