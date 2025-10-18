@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linkage Study Partner</title>
+  <link rel="icon" href="favicon.ico" />
   <style>
     body {
       font-family: "Poppins", Arial, sans-serif;
@@ -26,13 +27,26 @@
       to { text-shadow: 0 0 25px #00b3ff; }
     }
     p { font-size: 1.1em; color: #d1d1e0; margin-bottom: 25px; }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    label {
+      position: absolute;
+      left: -9999px;
+      visibility: hidden;
+    }
     input {
       padding: 12px; width: 65%; max-width: 400px;
       border: none; border-radius: 8px;
       background: #1b1f3b; color: white; outline: none;
     }
     button {
-      padding: 12px 25px; margin-left: 10px;
+      padding: 12px 25px;
       background: linear-gradient(90deg, #5865f2, #00b3ff);
       color: white; border: none; border-radius: 8px;
       cursor: pointer; transition: 0.3s; font-weight: bold;
@@ -45,6 +59,9 @@
       margin-top: 25px; font-size: 1.1em; color: #f5f5f5;
       line-height: 1.6; width: 80%; margin-left: auto;
       margin-right: auto; max-width: 700px;
+    }
+    #answer[aria-live="polite"] {
+      min-height: 50px;
     }
     .about {
       margin-top: 80px; padding: 30px 20px;
@@ -61,7 +78,6 @@
       background: #0a0a0f; font-size: 0.9em; color: #888;
     }
 
-    /* ✅ Extra styling for Deep Research toggle */
     .mode-toggle {
       display: inline-block;
       margin-top: 10px;
@@ -74,19 +90,27 @@
       color: #00e0ff;
       font-weight: bold;
     }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8em; }
+      input, button { width: 100%; margin: 5px 0; }
+      .input-group { flex-direction: column; align-items: center; }
+    }
   </style>
 </head>
 <body>
   <h1>🤖 Linkage Study Partner</h1>
   <p>Type a topic you don’t understand — your AI partner will explain it simply.</p>
 
-  <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
-  <button id="askBtn" onclick="askAI()">Ask</button>
+  <label for="topic">Topic</label>
+  <div class="input-group">
+    <input type="text" id="topic" placeholder="e.g. Floatation in Physics" />
+    <button id="askBtn" onclick="askAI()">Ask</button>
+  </div>
 
-  <!-- 🧠 Deep Research Mode Toggle -->
   <div class="mode-toggle" id="modeToggle">🧠 Deep Research Mode: OFF</div>
 
-  <p id="answer"></p>
+  <p id="answer" aria-live="polite"></p>
 
   <div class="about">
     <h2>About Linkage</h2>
@@ -106,10 +130,8 @@
     const modeToggle = document.getElementById("modeToggle");
     const askBtn = document.getElementById("askBtn");
 
-    // 🧠 Default mode
     let mode = "normal";
 
-    // ✅ Toggle Deep Research Mode
     modeToggle.addEventListener("click", () => {
       if (mode === "normal") {
         mode = "deep_research";
@@ -140,7 +162,6 @@
       try {
         const workerURL = "https://linkage-worker.anshumanbhattarai124.workers.dev/";
 
-        // ✅ Send both topic + mode
         const response = await fetch(workerURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -163,7 +184,6 @@
       }
     }
 
-    // ✅ Pressing Enter respects the current mode
     topicInput.addEventListener("keypress", function(e) {
       if (e.key === "Enter") askAI();
     });
